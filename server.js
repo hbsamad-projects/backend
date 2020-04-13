@@ -28,7 +28,7 @@ app.use('/users', usersRouter);
 app.use('/qualifications', qualificationsRouter);
 
 app.get("/", (req, res) => {
-  res.send("Server is running on port : " + port);
+  res.send("Server is running on port : " + connection);
 });
 
 app.listen(port, () => {
