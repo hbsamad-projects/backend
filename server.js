@@ -27,6 +27,10 @@ app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
 app.use('/qualifications', qualificationsRouter);
 
+app.get("/", (req, res) => {
+  res.send("Server is running on port : " + port);
+});
+
 app.listen(port, () => {
   console.log("Server is running on port : " + port);
 });
