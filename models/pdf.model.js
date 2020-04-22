@@ -1,10 +1,11 @@
 module.exports = (qualification) => {
 
     const usage = {
-      "1":"Flotte à usage professionnel et personnel",
-      "2":"Parking en copropriété",
-      "3":"Parking en maison individuelle",
-      "4":"Parking public"
+      "1":"Bornes pour flotte d'entreprise sur parking privé",
+      "2":"Partagé en résidentiel collectif",
+      "3":"Individuel en résidentiel collectif",
+      "4":"Bornes accessibles au public sur voiries",
+      "5":"Bornes accessibles au public sur parking privé"
     };
 
     const s_enedis = {

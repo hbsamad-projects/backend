@@ -12,6 +12,9 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
 
+  const uniqid = req.body.uniqid;
+  const stage = req.body.stage;
+
   const siret = req.body.siret;
   const corporatename = req.body.corporatename;
   const sitename = req.body.sitename;
@@ -76,6 +79,8 @@ router.route('/add').post((req, res) => {
   };
 
   const newQualification = new Qualification({
+    uniqid,
+    stage,
     siret ,
     corporatename ,
     sitename ,
@@ -136,6 +141,8 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
   Qualification.findById(req.params.id)
     .then(qualification => {
+      qualification.uniqid = req.body.uniqid;
+      qualification.stage = req.body.stage;
       qualification.siret = req.body.siret;
       qualification.corporatename = req.body.corporatename;
       qualification.sitename = req.body.sitename;

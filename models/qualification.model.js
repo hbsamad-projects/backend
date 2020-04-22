@@ -3,6 +3,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const qualificationSchema = new Schema({
+  uniqid: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    minlength: 3
+  },
+
+  stage: {
+    type: String,
+    required:true
+  },
+
   siret: {
     type: String,
     required: true,
