@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Qualification</title>
   <style>
+
     html,
     body,
     div,
@@ -32,45 +33,20 @@
 
     @media screen {
       body {
-        margin: 5em
+        margin: 1em
       }
     }
 
     body {
       font-family: Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-      font-size: 8pt;
+      font-size: 10px;
       padding: 0 0 0.1em;
     }
 
-    q {
-      font-style: italic
-    }
-
-    h1 {
-      font-size: 3em;
-      padding: 0 0 3em
-    }
-
-    h2,
-    h3 {
-      font-size: 1em;
-      color: #005FAA;
-      margin: 0.2em 0 0.1em;
-    }
-
-    p,
-    li {
-      margin: 0.2em 0 0.4em;
-    }
-
-    ul,
-    ol {
-      margin: 0.2em 0 0.4em 1.5em
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit
+    ul li {
+      display: flex;
+      margin-bottom: 10px;
+      align-items: center;
     }
 
     address {
@@ -89,38 +65,20 @@
       text-align: center
     }
 
-    .content-table {
-      border-collapse: collapse;
-      margin: 25px 0;
-      font-size: 0.9em;
-      min-width: 300px;
-      border-radius: 5px 5px 0 0;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    }
+    table {
+      width: 600px;
+      align-items: flex-start;
+      align-content: flex-start;
+      justify-content: flex-start;
 
-    .content-table thead tr {
-      background-color: #37B9C3;
-      color: white;
+    }
+    table tr td{
+      height: 200px;
+      width: 300px;
       text-align: left;
-      font-weight: bold;
-    }
-
-    .content-table th,
-    .content-table td {
-      padding: 4px 5px;
-    }
-
-    .content-table tbody tr {
-      border-bottom: 1px solid #dddddd;
-    }
-
-    .content-table tbody tr:nth-of-type(even) {
-      background-color: #f3f3f3;
-    }
-
-    .content-table tbody tr:last-of-type {
-      border-bottom: 2px solid #37B9C3;
+      align-items: flex-start;
+      align-content: flex-start;
+      justify-content: flex-start;
     }
 
     .container {
@@ -141,6 +99,24 @@
       top: 70px;
       left: 10px;
       position: absolute;
+    }
+
+    .semi-bold {
+      font-weight: 500;
+    }
+
+    .bold {
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      margin-bottom: 20px;
+    }
+    .data{
+      color: #333;
     }
   </style>
 </head>
@@ -172,139 +148,294 @@
       09 63 60 97 50
     </address>
     <div class="container">
-      <h3>1. Identification du projet</h3>
-      <table class="content-table">
-        <thead>
-          <tr>
-            <th>Usage</th>
-            <th>Numéro de PDL</th>
-            <th>Segment ENEDIS</th>
-            <th>Précisions le cas échéant</th>
-          </tr>
-        </thead>
+      <div class="semi-bold">
+        Identifiant :
+      </div>
+      <div class="data">
+        ${qualification.uniqid}
+      </div>
+      <br />
+      <table>
         <tbody>
-          <tr>
-            <td>${usage[qualification.usage]}</td>
-            <td>${qualification.pdl}</td>
-            <td>${s_enedis[qualification.s_enedis]}</td>
-            <td>${qualification.project_ad_inf}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3>2. Documents à joindre pour administration du dossier</h3>
-      <table class="content-table">
-        <tbody>
-          <thead>
-            <tr>
-              <th>Copie de la dernière facture d'électricité</th>
-              <th>RIB</th>
-              <th>Plan de prévention travaux</th>
-              <th>Autorisation par mail</th>
-            </tr>
-          </thead>
-        <tbody>
-          <tr>
-            <td>${(qualification.documents.elec_bill)?"Oui":"Non"}</td>
-            <td>${(qualification.documents.rib)?"Oui":"Non"}</td>
-            <td>${(qualification.documents.works_plan)?"Oui":"Non"}</td>
-            <td>${(qualification.documents.authorization)?"Oui":"Non"}</td>
-          </tr>
-        </tbody>
-        </tbody>
-      </table>
-      <h3>3. Nombre de bornes souhaitées</h3>
-      <table class="content-table">
-        <thead>
-          <tr>
-            <th>Borne simple 7,4kW</th>
-            <th>Borne double 7,4kW</th>
-            <th>Borne simple 22kW</th>
-            <th>Borne double 22kW</th>
-            <th>Borne 7,4kW en copropriété</th>
-            <th>Autres, précisez</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>${qualification.charger_needs.nb_s_7kw_c}</td>
-            <td>${qualification.charger_needs.nb_d_7kw_c}</td>
-            <td>${qualification.charger_needs.nb_s_22kw_c}</td>
-            <td>${qualification.charger_needs.nb_d_22kw_c}</td>
-            <td>${qualification.charger_needs.nb_sh_7kw_c}</td>
-            <td>${qualification.charger_needs.other_data}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3>4. Besoins à définir</h3>
-      <table class="content-table">
-        <thead>
-          <tr>
-            <th>Temps de charge acceptable pour 100km</th>
-            <th>Nombre de véhicules électriques</th>
-            <th>Nombre de charges par jour et par véhicule</th>
-            <th>Jours d'accès à la recharge</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>${charging_time[qualification.other_needs.charging_time]}</td>
-            <td>${qualification.other_needs.nb_vehicules}</td>
-            <td>${qualification.other_needs.nb_charges}</td>
-            <td>${allowed_access_days[qualification.other_needs.allowed_access_days]}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3>5. Autres informations</h3>
-      <table class="content-table">
-        <thead>
-          <tr>
-            <th>Type de pose</th>
-            <th>Signalisation</th>
-            <th>Type de borne</th>
-            <th>Condition de facturation à la recharge</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>${installation_type[qualification.other_information.installation_type]}</td>
-            <td>${signalling[qualification.other_information.signalling]}</td>
-            <td>${station_type[qualification.other_information.station_type]}</td>
-            <td>${billing_conditions[qualification.other_information.billing_conditions]}</td>
-          </tr>
-        </tbody>
-      </table>
+        <tr>
+          <td>
+            <div class="resume">
+              <div class="title">
+                <p class="bold">Identification du projet</p>
+              <div>
+              <ul>
+                 <li>
+                   <div class="semi-bold">
+                     Usage :
+                   </div>
+                   <div class="data">
+                     ${usage[qualification.usage]}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Numéro de PDL :
+                   </div>
+                   <div class="data">
+                     ${qualification.pdl}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Segment ENEDIS :
+                   </div>
+                   <div class="data">
+                     ${s_enedis[qualification.s_enedis]}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Précisions le cas échéant :
+                   </div>
+                   <div class="data">
+                     ${qualification.project_ad_inf}
+                   </div>
+                 </li>
+               </ul>
+           </div>
+          </td>
+          <td>
+            <div class="resume">
+              <div class="title">
+                <p class="bold">Documents à joindre</p>
+              <div>
+              <ul>
+                 <li>
+                   <div class="semi-bold">
+                     Copie de la dernière facture d'électricité :
+                   </div>
+                   <div class="data">
+                     ${(qualification.documents.elec_bill)?"Oui":"Non"}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     RIB :
+                   </div>
+                   <div class="data">
+                     ${(qualification.documents.rib)?"Oui":"Non"}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Plan de prévention travaux :
+                   </div>
+                   <div class="data">
+                     ${(qualification.documents.works_plan)?"Oui":"Non"}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Autorisation par mail :
+                   </div>
+                   <div class="data">
+                     ${(qualification.documents.authorization)?"Oui":"Non"}
+                   </div>
+                 </li>
+               </ul>
+           </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="resume">
+              <div class="title">
+                <p class="bold">Besoins</p>
+              <div>
+              <ul>
+                 <li>
+                   <div class="semi-bold">
+                     Temps de charge acceptable pour 100km :
+                   </div>
+                   <div class="data">
+                     ${charging_time[qualification.other_needs.charging_time]}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Nombre de véhicules électriques :
+                   </div>
+                   <div class="data">
+                     ${qualification.other_needs.nb_vehicules}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Nombre de charges par jour et par véhicule :
+                   </div>
+                   <div class="data">
+                     ${qualification.other_needs.nb_charges}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Jours d'accès à la recharge :
+                   </div>
+                   <div class="data">
+                     ${allowed_access_days[qualification.other_needs.allowed_access_days]}
+                   </div>
+                 </li>
+               </ul>
+           </div>
+          </td>
+          <td>
+            <div class="resume">
+              <div class="title">
+                <p class="bold">Nombre de bornes souhaitées</p>
+              <div>
+              <ul>
+                 <li>
+                   <div class="semi-bold">
+                     Borne simple 7,4kW :
+                   </div>
+                   <div class="data">
+                     ${qualification.charger_needs.nb_s_7kw_c}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Borne double 7,4kW :
+                   </div>
+                   <div class="data">
+                     ${qualification.charger_needs.nb_d_7kw_c}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Borne simple 22kW :
+                   </div>
+                   <div class="data">
+                     ${qualification.charger_needs.nb_s_22kw_c}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Borne double 22kW :
+                   </div>
+                   <div class="data">
+                     ${qualification.charger_needs.nb_d_22kw_c}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Borne 7,4kW en copropriété :
+                   </div>
+                   <div class="data">
+                     ${qualification.charger_needs.nb_sh_7kw_c}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Autres, précisez :
+                   </div>
+                   <div class="data">
+                     ${qualification.charger_needs.other_data}
+                   </div>
+                 </li>
+               </ul>
+           </div
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="resume">
+              <div class="title">
+                <p class="bold">Autres informations</p>
+              <div>
+              <ul>
+                 <li>
+                   <div class="semi-bold">
+                     Type de pose :
+                   </div>
+                   <div class="data">
+                     ${installation_type[qualification.other_information.installation_type]}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Signalisation :
+                   </div>
+                   <div class="data">
+                     ${signalling[qualification.other_information.signalling]}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Type de borne :
+                   </div>
+                   <div class="data">
+                     ${station_type[qualification.other_information.station_type]}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Condition de facturation à la recharge :
+                   </div>
+                   <div class="data">
+                     ${billing_conditions[qualification.other_information.billing_conditions]}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Commentaires :
+                   </div>
+                   <div class="data">
+                     ${qualification.comments}
+                   </div>
+                 </li>
+               </ul>
+           </div>
+          </td>
+          <td>
+            <div class="resume">
+              <div class="title">
+                <p class="bold">Conditions de réalisation des travaux</p>
+              <div>
+              <ul>
+                 <li>
+                   <div class="semi-bold">
+                     Date souhaitée de visite technique :
+                   </div>
+                   <div class="data">
+                     10/05/2020
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Date souhaitée de l'installation :
+                   </div>
+                   <div class="data">
+                     17/06/2020
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Restrictions d'accès :
+                   </div>
+                   <div class="data">
+                     ${qualification.works_conditions.access_restrictions}
+                   </div>
+                 </li>
+                 <li>
+                   <div class="semi-bold">
+                     Plan de prévention pour les travaux :
+                   </div>
+                   <div class="data">
+                     ${qualification.works_conditions.prevention_plan}
+                   </div>
+                 </li>
+               </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-      <table class="content-table">
-        <thead>
-          <tr>
-            <th>Commentaires</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>${qualification.comments}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3>6. Conditions de réalisation des travaux</h3>
-      <table class="content-table">
-        <thead>
-          <tr>
-            <th>Date souhaitée de visite technique</th>
-            <th>Date souhaitée de l'installation</th>
-            <th>Restrictions d'accès</th>
-            <th>Plan de prévention pour les travaux</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td>${access_restrictions[qualification.works_conditions.access_restrictions]}</td>
-            <td>${prevention_planqualification.works_conditions.prevention_plan]}</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
 </html>
