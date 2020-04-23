@@ -1,3 +1,4 @@
+var moment = require('moment');
 module.exports = (qualification) => {
 
     const usage = {
@@ -461,7 +462,7 @@ module.exports = (qualification) => {
                          Date souhaitée de visite technique :
                        </div>
                        <div class="data">
-                         10/05/2020
+                         ${moment(qualification.works_conditions.technical_visite_date).format("MM/DD/YYYY")}
                        </div>
                      </li>
                      <li>
@@ -469,7 +470,7 @@ module.exports = (qualification) => {
                          Date souhaitée de l'installation :
                        </div>
                        <div class="data">
-                         17/06/2020
+                         ${moment(qualification.works_conditions.installation_date).format("MM/DD/YYYY")}
                        </div>
                      </li>
                      <li>

@@ -1,6 +1,8 @@
 const router = require('express').Router();
 let Qualification = require('../models/qualification.model');
 const pdf = require('html-pdf');
+const mongoose = require('mongoose');
+const mailhandler = require('../tools/mailhandler');
 
 const pdfTemplate = require('../models/pdf.model');
 
@@ -101,8 +103,10 @@ router.route('/add').post((req, res) => {
     works_conditions
   });
 
+  console.log(newQualification);
+
   newQualification.save()
-  .then(() => res.json('Qualification added!'))
+  .then(() => res.json({id:newQualification._id}))
   .catch(err => res.status(400).json('Error: ' + err));
 
 });
@@ -130,6 +134,22 @@ router.route('/pdf/:id').post((req, res) => {
   router.route('/pdf/:id').get((req, res) => {
       res.sendFile(`${__dirname}/result.pdf`);
   });
+
+  router.route('/email/:id').get((req, res) => {
+    Qualification.findById(req.params.id)
+      .then(qualification => {
+
+        new Promise((resolve, reject) => {
+
+            //mailhandler.sendmail(qualification);
+            resolve('Success');
+
+        })
+        .then((message) => res.json('Email sent !'))
+        .catch(err => res.status(400).json('Error: ' + err));
+
+      });
+    });
 
 
 router.route('/:id').delete((req, res) => {
